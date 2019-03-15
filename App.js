@@ -6,8 +6,10 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import RouterComponent from './src/Router';
+import firebase from '@firebase/app' //forma correcta de importar el firebase
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,25 +18,53 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
+
+
 type Props = {};
 export default class App extends Component<Props> {
+
+
+  componentWillMount() {
+    firebase.initializeApp({
+        apiKey: "AIzaSyBXZ5aowjuOvMuF7ixnNDwNWGyOiajyBS0",
+        authDomain: "login-react-a3c48.firebaseapp.com",
+        databaseURL: "https://login-react-a3c48.firebaseio.com",
+        // projectId: "login-react-a3c48",
+        storageBucket: "login-react-a3c48.appspot.com",
+        // messagingSenderId: "43948050742"
+    });
+
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            this.setState({ sesionIniciada: true });
+        } else {
+            this.setState({ sesionIniciada: false });
+        }
+    })
+}
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      // <View style={styles.container}>
+      //   <Text style={styles.welcome}>Welcome to React Native!</Text>
+      //   <Text style={styles.instructions}>To get started, edit App.js</Text>
+      //   <Text style={styles.instructions}>{instructions}</Text>
+      // </View>
+      // <View>
+         <RouterComponent />
+      //  </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#00FFaa',
   },
   welcome: {
     fontSize: 20,

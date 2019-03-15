@@ -1,10 +1,11 @@
 import React from 'react';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
+import Login from './components/login/login';
 
 
 const RouterComponent = () => {
     return (
-        <Router >
+        <Router>
             {/* <Stack key="root"> */}
             <Scene key="root" hideNavBar>
 
@@ -12,11 +13,11 @@ const RouterComponent = () => {
 
                     <Scene
                         key="login"
-                        component={Home}
+                        component={Login}
                         initial
                     />
                 </Scene>
-                <Scene key="configuraciones">
+                {/* <Scene key="configuraciones">
 
                     <Scene
                         key="ListaCiudades"
@@ -30,7 +31,7 @@ const RouterComponent = () => {
                         component={Perfil}
                         title="Perfil"
                     />
-                </Scene>
+                </Scene> */}
             </Scene>
 
             {/* </Stack> */}
