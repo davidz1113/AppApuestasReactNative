@@ -17,27 +17,35 @@ class Login extends Component {
     }
 
 
+    componentWillMount() {
+
+
+    }
 
 
     enviarFormulario() {
         const { email, password } = this.state;
-
+        console.log('aqui en el boton');
         this.setState({ error: '', cargando: true });
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(this.loginExitoso())
-            .catch(this.loginError.bind(this))
-            ;
+        if (email != '' & password != '') {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(this.loginExitoso())
+                .catch(this.loginError.bind(this))
+                ;
+            return;
+        }
+
+        this.setState({ error: 'El correo o contraseña son vacios', cargando: false });
     }
 
 
     loginExitoso() {
-        this.setState({ email: '', password: '', cargando: false });
+        this.setState({ email: '', password: '', cargando: false, error: 'Se autentico satisfactoriamente' });
     }
 
     loginError() {
         this.setState({ error: 'Error de autenticación', cargando: false });
-
     }
 
 
@@ -45,10 +53,15 @@ class Login extends Component {
         if (this.state.cargando) {
             return <Spinner size={'small'} />
         } else {
-            return <Boton texto={'Iniciar Sesión'}
+            return (<Boton texto={'Enviar'}
                 onPress={this.enviarFormulario.bind(this)}
             />
+            )
         }
+    }
+
+    cerrarSesion() {
+
     }
 
     render() {
@@ -62,7 +75,7 @@ class Login extends Component {
             }}>
 
                 <Card>
-                    <Text style={{ fontSize: 30, paddingBottom: 30, textAlign: 'center', color:'black' }}>Resultados App</Text>
+                    <Text style={{ fontSize: 30, paddingBottom: 30, textAlign: 'center', color: 'black' }}>Resultados App</Text>
 
                     <CardSection>
                         <Input
@@ -86,6 +99,11 @@ class Login extends Component {
                         {this.mostrarAccion()}
 
                     </CardSection>
+                    {/* <CardSection>
+                        <Boton texto={'cerrar sesion'}
+                            onPress={()=> firebase.auth().signOut()}/>
+
+                    </CardSection> */}
                 </Card>
             </View>
 

@@ -10,6 +10,8 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import RouterComponent from './src/Router';
 import firebase from '@firebase/app' //forma correcta de importar el firebase
+import { Actions } from 'react-native-router-flux';
+require('@firebase/auth');
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -27,22 +29,22 @@ export default class App extends Component<Props> {
 
   componentWillMount() {
     firebase.initializeApp({
-        apiKey: "AIzaSyBXZ5aowjuOvMuF7ixnNDwNWGyOiajyBS0",
-        authDomain: "login-react-a3c48.firebaseapp.com",
-        databaseURL: "https://login-react-a3c48.firebaseio.com",
-        // projectId: "login-react-a3c48",
-        storageBucket: "login-react-a3c48.appspot.com",
-        // messagingSenderId: "43948050742"
+      apiKey: "AIzaSyBXZ5aowjuOvMuF7ixnNDwNWGyOiajyBS0",
+      authDomain: "login-react-a3c48.firebaseapp.com",
+      databaseURL: "https://login-react-a3c48.firebaseio.com",
+      // projectId: "login-react-a3c48",
+      storageBucket: "login-react-a3c48.appspot.com",
+      // messagingSenderId: "43948050742"
     });
 
     firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            this.setState({ sesionIniciada: true });
-        } else {
-            this.setState({ sesionIniciada: false });
-        }
+      if (user) {
+        Actions.principal();
+      } else {
+        Actions.loginMain();
+      }
     })
-}
+  }
 
   render() {
     return (
@@ -52,7 +54,7 @@ export default class App extends Component<Props> {
       //   <Text style={styles.instructions}>{instructions}</Text>
       // </View>
       // <View>
-         <RouterComponent />
+      <RouterComponent />
       //  </View>
     );
   }
