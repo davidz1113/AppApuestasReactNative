@@ -8,16 +8,16 @@ const BarraInferior = (props) => {
 
     return (
         <View style={contenedor}>
-            <TouchableOpacity style={item}>
+            <TouchableOpacity style={item} onPress={props.onPress.bind(this,{ state: 'home', title: 'Resultados App' })}>
                 <Icon name={props.primero} size={35} color='#fff'></Icon>
             </TouchableOpacity>
-            <TouchableOpacity style={item}>
+            <TouchableOpacity style={item} onPress={props.onPress.bind(this,{ state: 'futbol', title: 'Fútbol' })}>
                 <Icon name={props.segundo} size={35} color='#fff' />
             </TouchableOpacity>
-            <TouchableOpacity style={item}>
+            <TouchableOpacity style={item} onPress={props.onPress.bind(this,{ state: 'baloncesto', title: 'Baloncesto' })}>
                 <Icon name={props.tercero} size={35} color='#fff' />
             </TouchableOpacity>
-            <TouchableOpacity style={item}>
+            <TouchableOpacity style={item} onPress={props.onPress.bind(this,{ state: 'apuestas', title: 'Apuestas' })}>
                 <Icon name={props.cuarto} size={35} color='#fff' />
             </TouchableOpacity>
         </View>

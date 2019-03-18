@@ -32,9 +32,9 @@ export default class App extends Component<Props> {
       apiKey: "AIzaSyBXZ5aowjuOvMuF7ixnNDwNWGyOiajyBS0",
       authDomain: "login-react-a3c48.firebaseapp.com",
       databaseURL: "https://login-react-a3c48.firebaseio.com",
-      // projectId: "login-react-a3c48",
+      projectId: "login-react-a3c48",
       storageBucket: "login-react-a3c48.appspot.com",
-      // messagingSenderId: "43948050742"
+      messagingSenderId: "43948050742"
     });
 
     firebase.auth().onAuthStateChanged(user => {

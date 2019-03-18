@@ -16,17 +16,6 @@ const CardMenuItems = (props) => {
             <Text style={{alignSelf:'center'}}>{props.texto}</Text>
         </View>
 
-        // <TouchableOpacity style={item}>
-        //     <Icon name={props.icono2} size={50} color={props.color}></Icon>
-        // </TouchableOpacity>
-        // <TouchableOpacity style={item}>
-        //     <Icon name={props.icono3} size={50} color={props.color}></Icon>
-        // </TouchableOpacity>
-        // <TouchableOpacity style={item}>
-        //     <Icon name={props.icono4} size={50} color={props.color}></Icon>
-        // </TouchableOpacity>
-        // </View>
-
     );
 }
 
