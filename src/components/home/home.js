@@ -22,10 +22,10 @@ class Home extends Component {
             case 'futbol':
                 vista =
                     // <View style={{ flex: 10, flexDirection: 'row' }}>
-                        // <ScrollView>
-                            <Futbol />
-                        // </ScrollView>
+                    // <ScrollView>
+                    // </ScrollView>
                     // </View>
+                    <Futbol />
                     ;
                 break;
 
@@ -149,7 +149,7 @@ const stylesScreen = {
         // backgroundColor: 'blue',
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     footer: {
         flex: 1.3

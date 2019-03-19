@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, ScrollView } from 'react-native';
 
 
-const Apuesta = () => {
+class Apuesta extends Component {
 
-    return (
-        <View style={{ flex: 10, flexDirection: 'row', backgroundColor: 'white' }}>
-            <ScrollView>
+    render() {
 
-                <Text>Bienvenido a Apuestas</Text>
-            </ScrollView>
-        </View>
+        return (
+            <View style={{ flex: 10, flexDirection: 'row', backgroundColor: 'white' }}>
+                <ScrollView>
 
-    );
+                    <Text>Bienvenido a Apuestas render</Text>
+                </ScrollView>
+            </View>
+
+        );
+    }
 
 
 }
