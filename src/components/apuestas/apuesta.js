@@ -25,12 +25,17 @@ class Apuesta extends Component {
             (res) => {
 
                 res.forEach((doc) => {
-                    datos.push(doc.data());
+                    // console.log(doc.id);
+                    const data = {
+                        id: doc.id,
+                        data: doc.data()
+                    }
+                    datos.push(data);
                     // console.log(doc.id, " => ", doc.data());
                 });
                 this.setState({ cargo: true });
                 this.setState({ datos: datos });
-                console.log(datos);
+                // console.log(datos);
             }
 
         );

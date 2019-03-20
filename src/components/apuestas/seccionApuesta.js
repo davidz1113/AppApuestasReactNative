@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Card, CardSection, Spinner, Boton, Input } from '../reusables';
+import firebase from '@firebase/app' //forma correcta de importar el firebase
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+require('@firebase/firestore');
 
 
 class SeccionApuesta extends Component {
@@ -23,11 +27,14 @@ class SeccionApuesta extends Component {
     asignarBanderas(datos) {
         let banderas = [];
         datos.map((dato, index) => {
+
             banderas.push({
+                id: dato.id,
                 index,
                 show: false,
-                gol_local: dato.gol_local,
-                gol_visitante: dato.gol_visitante,
+                gol_local: dato.data.gol_local,
+                gol_visitante: dato.data.gol_visitante,
+                apostado: dato.data.apostado
             })
         })
         this.setState({ show: banderas });
@@ -60,11 +67,11 @@ class SeccionApuesta extends Component {
 
             <TouchableOpacity key={index} style={(index == 0 || index % 2 == 0) ? fondo1 : fondo2} onPress={this.cambiarShow.bind(this, index)}>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.textEquipo}>{dato.local}</Text>
+                    <Text style={styles.textEquipo}>{dato.data.local}</Text>
                     <Text style={styles.textVs}>{this.state.show[index].show ? 'VS' : '-'}</Text>
-                    <Text style={styles.textEquipo}>{dato.visitante}</Text>
+                    <Text style={styles.textEquipo}>{dato.data.visitante}</Text>
                 </View>
-                {this.mostrarSeccionMarcador(dato, index)}
+                {this.mostrarSeccionMarcador(index)}
             </TouchableOpacity>);
 
     }
@@ -75,7 +82,7 @@ class SeccionApuesta extends Component {
         this.setState({ show: this.state.show })
     }
 
-    mostrarSeccionMarcador(dato, index) {
+    mostrarSeccionMarcador(index) {
         if (this.state.show[index].show) {
             return (
                 <View style={{ marginTop: 20 }}>
@@ -99,13 +106,39 @@ class SeccionApuesta extends Component {
                         </View>
                     </View>
                     <View>
-                        <Boton texto={'Apostar'}/>
+                        {this.state.show[index].apostado?<Icon style={{alignSelf:'center'}} name={'check-circle'} size={50} color={'green'}></Icon>:<Boton texto={'Apostar'} onPress={this.actualizarMarcador.bind(this, this.state.show[index])} /> }
+
                     </View>
                 </View>
 
             )
         }
     }
+
+
+    // validarBoton(index) {
+    //     let apostado = this.state.show[index].apostado;
+    //     if (apostado) {
+    //         console.log('aqui');
+    //         return <Boton texto={'Apostar'} onPress={this.actualizarMarcador.bind(this, this.state.show[index])} />
+    //     } else {
+    //         return <Icon style={{alignSelf:'center'}} name={'check-circle'} size={70} color={'green'}></Icon>
+    //     }
+    // }
+
+    actualizarMarcador(estado) {
+        console.log(estado);
+        firebase.firestore().collection('partidos-proximos').doc(estado.id).update({
+            "gol_local": estado.gol_local,
+            "gol_visitante": estado.gol_visitante,
+            "apostado": true
+        }).then(() => {
+            estado.apostado = true;
+            this.setState({ show: this.state.show })
+            console.log("se actualizo correctamente");
+        });
+    }
+
 
     CambiarGol(gol, tipo, index) {
         let estado = this.state.show[index];
